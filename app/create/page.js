@@ -1,5 +1,5 @@
 import Link from "next/link";
-import QuizForm from "@/components/QuizForm";
+import ProjectForm from "@/components/ProjectForm";
 
 export default function CreatePage() {
     return (
@@ -45,7 +45,7 @@ export default function CreatePage() {
                     </p>
                 </div>
 
-                <QuizForm />
+                <ProjectForm />
             </main>
         </div>
     );

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import QuizList from "@/components/QuizList";
+import QuizList from "@/components/AllMemberList";
 
 export default function Home() {
     return (
