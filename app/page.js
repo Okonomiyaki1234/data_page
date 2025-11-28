@@ -10,7 +10,7 @@ export default function Home() {
                     <div className="flex justify-between items-center py-6">
                         <div className="flex items-center">
                             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                                クイズアプリ
+                                メンバー管理アプリ
                             </h1>
                         </div>
                         <nav className="hidden md:flex space-x-8">
@@ -24,7 +24,7 @@ export default function Home() {
                                 href="/create"
                                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
                             >
-                                クイズを追加
+                                プロジェクトを追加
                             </Link>
                         </nav>
                     </div>
@@ -35,11 +35,11 @@ export default function Home() {
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="text-center mb-12">
                     <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                        クイズ一覧
+                        プロジェクト一覧
                     </h2>
                     <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        登録されているクイズを確認して、学習を始めましょう。
-                        新しいクイズを追加することもできます。
+                        登録されているプロジェクトを確認できます。
+                        新しいプロジェクトを追加することもできます。
                     </p>
                 </div>
 
@@ -51,7 +51,7 @@ export default function Home() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div className="text-center text-gray-600 dark:text-gray-400">
                         <p>
-                            &copy; 2025 クイズアプリ. 学習用に作成されました。
+                            &copy; 2025 メンバー管理アプリ. 部活用に作成されました。
                         </p>
                     </div>
                 </div>

@@ -8,8 +8,8 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata = {
-    title: "Next.js学習テンプレート",
-    description: "Next.js学習用のテンプレートサイト",
+    title: "演劇部メンバー管理アプリ",
+    description: "演劇部のメンバーを簡単に管理できるアプリケーションです。",
 };
 
 export default function RootLayout({ children }) {
