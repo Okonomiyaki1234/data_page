@@ -22,7 +22,7 @@ export default function MemberListAll() {
                 const { data, error: sbError } = await supabase
                     .from("member")
                     .select("id, name, grade, role, final_updated, status, now_or_not")
-                    .order("grade", { ascending: true });
+                    .order("grade", { ascending: false });
 
                 if (sbError) throw sbError;
 
@@ -57,7 +57,9 @@ export default function MemberListAll() {
                 <div className="space-y-4">
                     {members.map((m) => (
                         <div key={m.id} className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                            <p className="text-lg font-semibold text-gray-900 dark:text-white">{m.name}</p>
+                            <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                                {m.name}
+                            </p>
                             <p className="text-gray-600 dark:text-gray-300">
                                 学年：{m.grade} ／ 役職：{m.role}
                             </p>
@@ -68,7 +70,7 @@ export default function MemberListAll() {
                                 最終更新：{m.final_updated}
                             </p>
                             <p className="text-gray-500 dark:text-gray-400 text-sm">
-                                現在在籍：{m.now_or_not === 1 ? "○" : "×"}
+                                現在在籍：{m.now_or_not === "1" ? "○" : "×"}
                             </p>
                         </div>
                     ))}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import QuizList from "@/components/AllMemberList";
+import AllMemberList from "@/components/AllMemberList";
 
 export default function Home() {
     return (
@@ -26,6 +26,13 @@ export default function Home() {
                             >
                                 プロジェクトを追加
                             </Link>
+                            <Link
+                                href="/page2.js"
+                                //なぜか動かないので一旦保留しています。
+                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                            >
+                                メンバーを追加
+                            </Link>
                         </nav>
                     </div>
                 </div>
@@ -35,15 +42,18 @@ export default function Home() {
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="text-center mb-12">
                     <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                        プロジェクト一覧
+                        メンバー一覧
                     </h2>
                     <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        登録されているプロジェクトを確認できます。
-                        新しいプロジェクトを追加することもできます。
+                        登録されている部員を確認できます。
+                        新しい部員を追加することもできます。(未実装)
+                    </p>
+                    <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        右上からプロジェクトを追加することも可能です。
                     </p>
                 </div>
 
-                <QuizList />
+                <AllMemberList />
             </main>
 
             {/* フッター */}

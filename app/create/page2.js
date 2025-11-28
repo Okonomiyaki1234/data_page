@@ -1,5 +1,6 @@
 import Link from "next/link";
-import ProjectForm from "@/components/ProjectForm";
+import MemberForm from "@/components/ProjectForm";
+//一旦、ProjectFormを流用しています。後でMemberFormを作成して適応してください。
 
 export default function CreatePage() {
     return (
@@ -27,12 +28,7 @@ export default function CreatePage() {
                                 href="/page.js"
                                 className="text-blue-600 dark:text-blue-400 font-medium"
                             >
-                                プロジェクトを追加
-                            </Link>
-                            <Link
-                                href="/paje2.js"
-                                className="text-blue-600 dark:text-blue-400 font-medium"
-                            >
+                                メンバーを追加
                             </Link>
                         </nav>
                     </div>
@@ -43,14 +39,14 @@ export default function CreatePage() {
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                        新規プロジェクト登録
+                        新規メンバー登録
                     </h1>
                     <p className="text-gray-600 dark:text-gray-300">
-                        新しいプロジェクトを作成して、第一章の開幕としましょう。
+                        メンバーとして登録して、新たな世界を切り拓きましょう。
                     </p>
                 </div>
 
-                <ProjectForm />
+                <MemberForm />
             </main>
         </div>
     );
