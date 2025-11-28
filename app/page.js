@@ -27,7 +27,7 @@ export default function Home() {
                                 プロジェクトを追加
                             </Link>
                             <Link
-                                href="/page2.js"
+                                href="/create2"
                                 //なぜか動かないので一旦保留しています。
                                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
                             >
