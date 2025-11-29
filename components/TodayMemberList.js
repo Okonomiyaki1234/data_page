@@ -26,7 +26,8 @@ export default function MemberListToday() {
                     .from("member")
                     .select("id, name, grade, role, final_updated, status, now_or_not")
                     .eq("final_updated", today)
-                    .order("grade", { ascending: true });
+                    .eq("now_or_not", "1")//現役のみ
+                    .order("grade", { ascending: false });
 
                 if (sbError) throw sbError;
 
@@ -43,7 +44,7 @@ export default function MemberListToday() {
 
     return (
         <div>
-            <h2 className="text-xl font-bold mb-6">本日更新されたメンバー一覧</h2>
+            <h2 className="text-xl text-gray-900 font-bold mb-6">本日更新されたメンバー一覧</h2>
 
             {loading ? (
                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center">
@@ -65,7 +66,7 @@ export default function MemberListToday() {
                             <p className="text-gray-600 dark:text-gray-300">
                                 学年：{m.grade} ／ 役職：{m.role}
                             </p>
-                            <p className="text-gray-600 dark:text-gray-300">
+                            <p className="text-lg text-gray-600 dark:text-gray-300">
                                 ステータス：{m.status}
                             </p>
                             <p className="text-gray-500 dark:text-gray-400 text-sm">

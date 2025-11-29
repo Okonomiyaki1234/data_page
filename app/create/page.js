@@ -18,21 +18,22 @@ export default function CreatePage() {
                         </div>
                         <nav className="hidden md:flex space-x-8">
                             <Link
-                                href="/"
+                                href="../"
                                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
                             >
                                 ホーム
                             </Link>
                             <Link
-                                href="/page.js"
+                                href="../create"
                                 className="text-blue-600 dark:text-blue-400 font-medium"
                             >
                                 プロジェクトを追加
                             </Link>
                             <Link
-                                href="/paje2.js"
-                                className="text-blue-600 dark:text-blue-400 font-medium"
+                                href="../create2"
+                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
                             >
+                                メンバーを追加
                             </Link>
                         </nav>
                     </div>

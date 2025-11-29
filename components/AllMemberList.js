@@ -22,7 +22,8 @@ export default function MemberListAll() {
                 const { data, error: sbError } = await supabase
                     .from("member")
                     .select("id, name, grade, role, final_updated, status, now_or_not")
-                    .order("grade", { ascending: false });
+                    .order("grade", { ascending: false })
+                    .eq("now_or_not", "1");//現役のみ
 
                 if (sbError) throw sbError;
 
@@ -39,7 +40,7 @@ export default function MemberListAll() {
 
     return (
         <div>
-            <h2 className="text-xl font-bold mb-6">メンバー一覧</h2>
+            <h2 className="text-xl text-gray-900 font-bold mb-6">メンバー一覧</h2>
 
             {loading ? (
                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center">

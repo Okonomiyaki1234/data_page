@@ -1,6 +1,5 @@
 import Link from "next/link";
-import MemberForm from "@/components/ProjectForm";
-//一旦、ProjectFormを流用しています。後でMemberFormを作成して適応してください。
+import MemberForm from "@/components/MemberForm";
 
 export default function CreatePage() {
     return (
@@ -19,13 +18,19 @@ export default function CreatePage() {
                         </div>
                         <nav className="hidden md:flex space-x-8">
                             <Link
-                                href="/"
+                                href="../"
                                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
                             >
                                 ホーム
                             </Link>
                             <Link
-                                href="/page.js"
+                                href="../create"
+                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                            >
+                                プロジェクトを追加
+                            </Link>
+                            <Link
+                                href="../create2"
                                 className="text-blue-600 dark:text-blue-400 font-medium"
                             >
                                 メンバーを追加

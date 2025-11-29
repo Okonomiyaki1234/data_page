@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AllMemberList from "@/components/AllMemberList";
+import TodayMemberList from "@/components/TodayMemberList";
 
 export default function Home() {
     return (
@@ -28,7 +29,6 @@ export default function Home() {
                             </Link>
                             <Link
                                 href="/create2"
-                                //なぜか動かないので一旦保留しています。
                                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
                             >
                                 メンバーを追加
@@ -45,14 +45,27 @@ export default function Home() {
                         メンバー一覧
                     </h2>
                     <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        登録されている部員を確認できます。
-                        新しい部員を追加することもできます。(未実装)
+                        登録されている部員及び本日更新されたメンバーを確認できます。
                     </p>
                     <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        右上からプロジェクトを追加することも可能です。
+                        右上からプロジェクト及びメンバーを追加可能です。
+                    </p>
+                    <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        新規でメンバーを追加することもできます。
                     </p>
                 </div>
 
+                <div className="my-8">// 波線デコレーション
+                    <svg viewBox="0 0 120 10" preserveAspectRatio="none" className="w-full h-3 text-gray-400">
+                        <path d="M0 5 Q 10 0 20 5 T 40 5 T 60 5 T 80 5 T 100 5 T 120 5" fill="none" stroke="currentColor" strokeWidth="1"/>
+                    </svg>
+                </div>
+                <TodayMemberList />
+                <div className="my-8">// 波線デコレーション
+                    <svg viewBox="0 0 120 10" preserveAspectRatio="none" className="w-full h-3 text-gray-400">
+                        <path d="M0 5 Q 10 0 20 5 T 40 5 T 60 5 T 80 5 T 100 5 T 120 5" fill="none" stroke="currentColor" strokeWidth="1"/>
+                    </svg>
+                </div>
                 <AllMemberList />
             </main>
 
