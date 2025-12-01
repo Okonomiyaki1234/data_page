@@ -35,6 +35,12 @@ export default function CreatePage() {
                             >
                                 メンバーを追加
                             </Link>
+                            <Link
+                                href="../create3"
+                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                            >
+                                プロジェクト一覧
+                            </Link>
                         </nav>
                     </div>
                 </div>
