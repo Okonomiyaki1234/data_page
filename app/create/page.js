@@ -45,7 +45,7 @@ export default function CreatePage() {
                                 href="../create4"
                                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
                             >
-                                メンバー更新（出席登録もこちら）
+                                メンバー情報更新
                             </Link>
                             <Link
                                 href="../create5"
