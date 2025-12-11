@@ -41,6 +41,18 @@ export default function CreatePage() {
                             >
                                 プロジェクト一覧
                             </Link>
+                            <Link
+                                href="../create4"
+                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                            >
+                                メンバー更新（出席登録もこちら）
+                            </Link>
+                            <Link
+                                href="../create5"
+                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                            >
+                                出席登録
+                            </Link>
                         </nav>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import MemberForm from "@/components/MemberForm";
+import MemberStateForm from "@/components/MemberStateForm";
 
 export default function CreatePage() {
     return (
@@ -31,7 +31,7 @@ export default function CreatePage() {
                             </Link>
                             <Link
                                 href="../create2"
-                                className="text-blue-600 dark:text-blue-400 font-medium"
+                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
                             >
                                 メンバーを追加
                             </Link>
@@ -42,14 +42,14 @@ export default function CreatePage() {
                                 プロジェクト一覧
                             </Link>
                             <Link
-                                href="../create4"
+                                href="/"
                                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
                             >
-                                メンバー更新（出席登録もこちら）
+                                メンバー情報更新
                             </Link>
                             <Link
                                 href="../create5"
-                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                                className="text-blue-600 dark:text-blue-400 font-medium"
                             >
                                 出席登録
                             </Link>
@@ -62,14 +62,14 @@ export default function CreatePage() {
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                        新規メンバー登録
+                        メンバー情報更新
                     </h1>
                     <p className="text-gray-600 dark:text-gray-300">
-                        メンバーとして登録して、新たな世界を切り拓きましょう。
+                        メンバー情報を更新して、新しい現し身へと生まれ変わりましょう。
                     </p>
                 </div>
 
-                <MemberForm />
+                <MemberStateForm />
             </main>
         </div>
     );

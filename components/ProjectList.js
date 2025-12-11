@@ -8,35 +8,47 @@ const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
 );
 
+
 export default function ListProject() {
     const [project, setProject] = useState([]);
+    const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        async function loadProject() {
+        async function loadData() {
             setLoading(true);
             setError(null);
-
             try {
-                const { data, error: sbError } = await supabase
+                // project一覧取得
+                const { data: projectData, error: projectError } = await supabase
                     .from("project")
                     .select("id, name, duration, roler")
                     .order("id", { ascending: false });
-                    {/*.eq("now_or_not", "1");//現役のみ*/}
+                if (projectError) throw projectError;
 
-                if (sbError) throw sbError;
+                // member一覧取得
+                const { data: memberData, error: memberError } = await supabase
+                    .from("member")
+                    .select("id, name");
+                if (memberError) throw memberError;
 
-                setProject(data);
+                setProject(projectData);
+                setMembers(memberData);
             } catch (e) {
                 setError(String(e));
             } finally {
                 setLoading(false);
             }
         }
-
-        loadProject();
+        loadData();
     }, []);
+
+    // roler（代表者ID）からmemberのnameを取得
+    const getMemberName = (id) => {
+        const member = members.find((m) => m.id === id);
+        return member ? member.name : "不明";
+    };
 
     return (
         <div>
@@ -65,7 +77,7 @@ export default function ListProject() {
                                 期間：{p.duration}
                             </p>
                             <p className="text-gray-500 dark:text-gray-400 text-sm">
-                                代表者（一名）：{p.roler}
+                                代表者（一名）：{getMemberName(p.roler)}
                             </p>
                         </div>
                     ))}
