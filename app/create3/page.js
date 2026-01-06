@@ -34,7 +34,7 @@ export default function Home() {
                                 メンバーを追加
                             </Link>
                             <Link
-                                href="/"
+                                href="/create3"
                                 className="text-blue-600 dark:text-blue-400 font-medium"
                             >
                                 プロジェクト一覧
