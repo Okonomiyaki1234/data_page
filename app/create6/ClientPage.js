@@ -33,7 +33,8 @@ export default function ClientPage() {
             supabase
                 .from("member")
                 .select("id, name, grade, role")
-                .eq("now_or_not", "1"),
+                .eq("now_or_not", "1")
+                .order("grade", { ascending: false }),
             supabase
                 .from("m_p")
                 .select("member_id")
@@ -45,12 +46,7 @@ export default function ClientPage() {
                 return;
             }
 
-            // grade降順でソート
-            const sortedMembers = memberRes.data.sort(
-                (a, b) => Number(b.grade) - Number(a.grade)
-            );
-
-            setMembers(sortedMembers);
+            setMembers(memberRes.data);
 
             const checked = mpRes.data.map((row) => row.member_id);
             setCheckedIds(checked);

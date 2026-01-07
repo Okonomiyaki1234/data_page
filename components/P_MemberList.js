@@ -50,6 +50,7 @@ export default function MemberListAll() {
                     .from("member")
                     .select("id, name, grade, role, final_updated, status, now_or_not")
                     .in("id", memberIds)
+                    .order("grade", { ascending: false })
                     .eq("now_or_not", "1");
 
                 if (sbError) throw sbError;
