@@ -1,5 +1,4 @@
 import Link from "next/link";
-//import AllMemberList from "@/components/AllMemberList";
 import ProjectList from "@/components/ProjectList";
 
 export default function Home() {
@@ -84,7 +83,6 @@ export default function Home() {
                         <path d="M0 5 Q 10 0 20 5 T 40 5 T 60 5 T 80 5 T 100 5 T 120 5" fill="none" stroke="currentColor" strokeWidth="1"/>
                     </svg>
                 </div>
-                {/*<AllMemberList />*/}
             </main>
 
             {/* フッター */}

@@ -84,8 +84,8 @@ export default function ListProject() {
                         <Link
                             key={p.id}
                             href={{
-                                pathname: "../app/create6",
-                                query: { projectIdQuery: p.id },
+                                pathname: "../create6",
+                                search: `?project_id=${p.id}`,
                             }}
                         >
                             <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 m-6">
