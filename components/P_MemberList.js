@@ -14,7 +14,7 @@ export default function MemberListAll() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // ✅ クエリ取得
+    //クエリ取得
     const searchParams = useSearchParams();
     const projectId = searchParams.get("project_id"); // string | null
 
