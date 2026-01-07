@@ -73,13 +73,13 @@ export default function Home() {
                     </p>
                 </div>
 
-                <div className="my-8">// 波線デコレーション
+                <div className="my-8">
                     <svg viewBox="0 0 120 10" preserveAspectRatio="none" className="w-full h-3 text-gray-400">
                         <path d="M0 5 Q 10 0 20 5 T 40 5 T 60 5 T 80 5 T 100 5 T 120 5" fill="none" stroke="currentColor" strokeWidth="1"/>
                     </svg>
                 </div>
                 <ProjectList />
-                <div className="my-8">// 波線デコレーション
+                <div className="my-8">
                     <svg viewBox="0 0 120 10" preserveAspectRatio="none" className="w-full h-3 text-gray-400">
                         <path d="M0 5 Q 10 0 20 5 T 40 5 T 60 5 T 80 5 T 100 5 T 120 5" fill="none" stroke="currentColor" strokeWidth="1"/>
                     </svg>
