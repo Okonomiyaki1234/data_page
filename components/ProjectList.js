@@ -21,6 +21,20 @@ export default function ListProject() {
             setLoading(true);
             setError(null);
             try {
+
+                // --- organization_codeをlocalStorageから取得する場合 ---
+                // const orgCode = parseInt(localStorage.getItem("organization_code"), 10);
+                // const { data: projectData, error: projectError } = await supabase
+                //     .from("project")
+                //     .select("id, name, duration, roler")
+                //     .order("id", { ascending: false })
+                //     .eq("organization_code", orgCode); // ← ここでorganization_codeも参照
+
+                // --- 実装時の手順 ---
+                // 1. localStorage.setItem("organization_code", 123); などで値を保存
+                // 2. 上記コメントアウトを外して利用
+
+                // --- 現状はorganization_code参照なし ---
                 const { data: projectData, error: projectError } = await supabase
                     .from("project")
                     .select("id, name, duration, roler")

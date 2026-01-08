@@ -42,7 +42,7 @@ export default function CreatePage() {
                                 プロジェクト一覧
                             </Link>
                             <Link
-                                href="/create4"
+                                href="../create4"
                                 className="text-blue-600 dark:text-blue-400 font-medium"
                             >
                                 メンバー情報更新

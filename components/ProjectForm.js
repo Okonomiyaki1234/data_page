@@ -25,6 +25,16 @@ export default function ProjectForm() {
         organization_code: 0, // int型で0に初期化。将来的にlocalStorageから値をセット予定
     });
 
+    // --- organization_codeをlocalStorageから取得する場合 ---
+    // useEffect(() => {
+    //     const orgCode = parseInt(localStorage.getItem("organization_code"), 10);
+    //     setFormData((prev) => ({ ...prev, organization_code: orgCode }));
+    // }, []);
+
+    // --- 実装時の手順 ---
+    // 1. localStorage.setItem("organization_code", 123); などで値を保存
+    // 2. 上記コメントアウトを外して利用
+
     // -----------------------------
     //  member 取得処理
     // -----------------------------

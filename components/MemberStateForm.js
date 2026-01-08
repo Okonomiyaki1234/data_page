@@ -28,6 +28,19 @@ export default function MemberEditForm() {
     // メンバー一覧取得
     useState(() => {
         (async () => {
+            // --- organization_codeをlocalStorageから取得する場合 ---
+            // const orgCode = parseInt(localStorage.getItem("organization_code"), 10);
+            // const { data, error } = await supabase
+            //     .from("member")
+            //     .select("id, name, grade, role, now_or_not, status")
+            //     .eq("now_or_not", 1)
+            //     .eq("organization_code", orgCode) // ← ここでorganization_codeも参照
+            //     .order("grade", { ascending: true });
+            // --- 実装時の手順 ---
+            // 1. localStorage.setItem("organization_code", 123); などで値を保存
+            // 2. 上記コメントアウトを外して利用
+
+            // --- 現状はorganization_code参照なし ---
             const { data, error } = await supabase
                 .from("member")
                 .select("id, name, grade, role, now_or_not, status")

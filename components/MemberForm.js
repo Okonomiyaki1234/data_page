@@ -17,6 +17,7 @@ export default function MemberForm() {
         grade: "",
         role: "",
         now_or_not: "",
+        organization_code: 0, // int型で0に初期化。将来的にlocalStorageから値をセット予定
     });
 
     const [loading, setLoading] = useState(false);
@@ -46,6 +47,7 @@ export default function MemberForm() {
                 role: formData.role,
                 final_updated: today,
                 now_or_not: formData.now_or_not,
+                organization_code: formData.organization_code, // 0で初期化、将来的にlocalStorageから取得予定
                 // status は DB 側で DEFAULT "none" になるようにしてください
             };
 
@@ -56,7 +58,7 @@ export default function MemberForm() {
             if (insertErr) throw insertErr;
 
             setSuccess("メンバーを追加しました！");
-            setFormData({ name: "", grade: "", role: "", now_or_not: "" });
+            setFormData({ name: "", grade: "", role: "", now_or_not: "", organization_code: 0 });
 
         } catch (err) {
             setError(String(err.message || err));
