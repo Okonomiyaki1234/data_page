@@ -22,6 +22,7 @@ export default function ProjectForm() {
         name: "",
         duration: "",
         roler: "", // member.id が入る
+        organization_code: "",
     });
 
     // -----------------------------
