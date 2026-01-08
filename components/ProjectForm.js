@@ -22,7 +22,7 @@ export default function ProjectForm() {
         name: "",
         duration: "",
         roler: "", // member.id が入る
-        organization_code: "",
+        organization_code: 0, // int型で0に初期化。将来的にlocalStorageから値をセット予定
     });
 
     // -----------------------------
@@ -72,6 +72,7 @@ export default function ProjectForm() {
                 name: formData.name,
                 duration: formData.duration,
                 roler: formData.roler, // 代表者IDを保存
+                organization_code: formData.organization_code, // 0で初期化、将来的にlocalStorageから取得予定
             };
 
             const { data: projectData, error: projectErr } = await supabase
@@ -98,7 +99,7 @@ export default function ProjectForm() {
 
             // 完了
             setSuccess("プロジェクトを保存しました");
-            setFormData({ name: "", duration: "", roler: "" });
+            setFormData({ name: "", duration: "", roler: "", organization_code: 0 });
 
         } catch (err) {
             setError(String(err.message || err));
