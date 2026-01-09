@@ -116,11 +116,13 @@ export default function MemberEditForm() {
                         className="block w-full px-3 py-2 border rounded-md dark:bg-gray-800 text-gray-900 dark:text-white"
                     >
                         <option value="">選択してください</option>
-                        {members.map((m) => (
-                            <option key={m.id} value={m.id}>
-                                {m.name}（{m.grade}年 / {m.role}）
-                            </option>
-                        ))}
+                        {[...members]
+                            .sort((a, b) => b.grade - a.grade)
+                            .map((m) => (
+                                <option key={m.id} value={m.id}>
+                                    {m.name}（{m.grade}年 / {m.role}）
+                                </option>
+                            ))}
                     </select>
                 </div>
 
