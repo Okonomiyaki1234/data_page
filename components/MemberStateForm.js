@@ -38,8 +38,8 @@ export default function MemberEditForm() {
                 .from("member")
                 .select("id, name, grade, role, now_or_not, status")
                 .eq("now_or_not", 1)
-                .eq("organization_code", orgCodeStr) // ← ここでorganization_codeも参照
-                .order("grade", { ascending: true });
+                .eq("organization_code", orgCodeStr)
+                .order("grade", { ascending: false }); // ← ここで降順に変更
             if (!error) setMembers(data);
         })();
     }, []);
@@ -110,13 +110,11 @@ export default function MemberEditForm() {
                         className="block w-full px-3 py-2 border rounded-md dark:bg-gray-800 text-gray-900 dark:text-white"
                     >
                         <option value="">選択してください</option>
-                        {[...members]
-                            .sort((a, b) => b.grade - a.grade)
-                            .map((m) => (
-                                <option key={m.id} value={m.id}>
-                                    {m.name}（{m.grade}年 / {m.role}）
-                                </option>
-                            ))}
+                        {members.map((m) => (
+                            <option key={m.id} value={m.id}>
+                                {m.name}（{m.grade}年 / {m.role}）
+                            </option>
+                        ))}
                     </select>
                 </div>
 
