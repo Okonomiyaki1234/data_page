@@ -12,6 +12,7 @@ const supabase = createClient(
 );
 
 export default function ClientPage() {
+    const [menuOpen, setMenuOpen] = useState(false); // 追加: モバイルメニュー用
     const [mode, setMode] = useState(0); // 0:閲覧, 1:編集
     const searchParams = useSearchParams();
     const projectId = searchParams.get("project_id");
@@ -21,6 +22,25 @@ export default function ClientPage() {
     const [initialCheckedIds, setInitialCheckedIds] = useState([]); // DB初期値
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [orgName, setOrgName] = useState(""); // 追加: 組織名
+
+    // 組織名取得
+    useEffect(() => {
+        const fetchOrgName = async () => {
+            const orgCode =
+                typeof window !== "undefined"
+                    ? localStorage.getItem("organization_code")
+                    : null;
+            if (!orgCode) return;
+            const { data, error } = await supabase
+                .from("organization")
+                .select("name")
+                .eq("id", orgCode)
+                .single();
+            if (data && data.name) setOrgName(data.name);
+        };
+        fetchOrgName();
+    }, []);
 
     // 編集モード用データ取得
     useEffect(() => {
@@ -120,41 +140,113 @@ export default function ClientPage() {
             <header className="bg-white dark:bg-gray-800 shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center py-6">
-                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                            メンバー管理アプリ
-                        </h1>
+                        <div className="flex items-center space-x-4">
+                            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                                メンバー管理アプリ
+                            </h1>
+                            {orgName && (
+                                <span className="text-gray-700 dark:text-gray-300 text-lg font-semibold">
+                                    （{orgName}）
+                                </span>
+                            )}
+                        </div>
+                        {/* PC用ナビゲーション */}
                         <nav className="hidden md:flex space-x-8">
                             <Link
                                 href="../home"
-                                className="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                                className="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                            >
                                 ホーム
                             </Link>
                             <Link
                                 href="../create"
-                                className="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                                className="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                            >
                                 プロジェクトを追加
                             </Link>
                             <Link
                                 href="../create2"
-                                className="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                                className="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                            >
                                 メンバーを追加
                             </Link>
                             <Link
                                 href="../create3"
-                                className="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                                className="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                            >
                                 プロジェクト一覧
                             </Link>
                             <Link
                                 href="../create4"
-                                className="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                                className="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                            >
                                 メンバー情報更新
                             </Link>
                             <Link
                                 href="../create5"
-                                className="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                                className="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                            >
                                 出席登録
                             </Link>
                         </nav>
+                        {/* モバイル用ハンバーガーメニュー */}
+                        <div className="md:hidden">
+                            <button
+                                onClick={() => setMenuOpen(!menuOpen)}
+                                className="text-gray-700 dark:text-gray-300 focus:outline-none"
+                                aria-label="メニューを開く"
+                            >
+                                <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+                                </svg>
+                            </button>
+                            {menuOpen && (
+                                <nav className="absolute top-20 right-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg py-4 px-6 z-50 flex flex-col space-y-4">
+                                    <Link
+                                        href="../home"
+                                        className="text-blue-600 dark:text-blue-400 font-medium"
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        ホーム
+                                    </Link>
+                                    <Link
+                                        href="../create"
+                                        className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        プロジェクトを追加
+                                    </Link>
+                                    <Link
+                                        href="../create2"
+                                        className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        メンバーを追加
+                                    </Link>
+                                    <Link
+                                        href="../create3"
+                                        className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        プロジェクト一覧
+                                    </Link>
+                                    <Link
+                                        href="../create4"
+                                        className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        メンバー情報更新
+                                    </Link>
+                                    <Link
+                                        href="../create5"
+                                        className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        出席登録
+                                    </Link>
+                                </nav>
+                            )}
+                        </div>
                     </div>
                 </div>
             </header>

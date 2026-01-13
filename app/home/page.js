@@ -1,11 +1,33 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import AllMemberList from "@/components/AllMemberList";
 import TodayMemberList from "@/components/TodayMemberList";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL || "",
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
+);
 
 export default function Home() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [orgName, setOrgName] = useState("");
+
+    useEffect(() => {
+        const fetchOrgName = async () => {
+            const orgCode = typeof window !== "undefined" ? localStorage.getItem("organization_code") : null;
+            if (!orgCode) return;
+            // organization_codeは数値型で保存されている前提
+            const { data, error } = await supabase
+                .from("organization")
+                .select("name")
+                .eq("id", orgCode)
+                .single();
+            if (data && data.name) setOrgName(data.name);
+        };
+        fetchOrgName();
+    }, []);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
@@ -13,13 +35,18 @@ export default function Home() {
             <header className="bg-white dark:bg-gray-800 shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center py-6">
-                        <div className="flex items-center">
+                        <div className="flex items-center space-x-4">
                             <Link
                                 href="/"
                                 className="text-2xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
                             >
                                 メンバー管理アプリ
                             </Link>
+                            {orgName && (
+                                <span className="text-gray-700 dark:text-gray-300 text-lg font-semibold">
+                                    （{orgName}）
+                                </span>
+                            )}
                         </div>
                         {/* PC用ナビゲーション */}
                         <nav className="hidden md:flex space-x-8">
