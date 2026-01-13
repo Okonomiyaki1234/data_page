@@ -19,25 +19,24 @@ export default function MemberListAll() {
             setError(null);
 
             try {
-                // --- organization_codeをlocalStorageから取得する場合 ---
-                // const orgCode = parseInt(localStorage.getItem("organization_code"), 10);
-                // const { data, error: sbError } = await supabase
-                //     .from("member")
-                //     .select("id, name, grade, role, final_updated, status, now_or_not")
-                //     .order("grade", { ascending: false })
-                //     .eq("now_or_not", "1")
-                //     .eq("organization_code", orgCode); // ← ここでorganization_codeも参照
+                // organization_codeをlocalStorageから取得
+                const orgCodeStr = typeof window !== "undefined" ? localStorage.getItem("organization_code") : "";
+                const orgCode = orgCodeStr ? parseInt(orgCodeStr, 10) : null;
 
-                // --- 実装時の手順 ---
-                // 1. localStorage.setItem("organization_code", 123); などで値を保存
-                // 2. 上記コメントアウトを外して利用
+                // organization_codeが取得できない場合は空配列を返す
+                if (!orgCode) {
+                    setMembers([]);
+                    setLoading(false);
+                    return;
+                }
 
-                // --- 現状はorganization_code参照なし ---
+                // Supabaseからorganization_codeで絞り込み
                 const { data, error: sbError } = await supabase
                     .from("member")
                     .select("id, name, grade, role, final_updated, status, now_or_not")
                     .order("grade", { ascending: false })
-                    .eq("now_or_not", "1");//現役のみ
+                    .eq("now_or_not", "1")
+                    .eq("organization_code", orgCode);
 
                 if (sbError) throw sbError;
 

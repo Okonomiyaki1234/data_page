@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
@@ -17,8 +17,19 @@ export default function MemberForm() {
         grade: "",
         role: "",
         now_or_not: "",
-        organization_code: 0, // int型で0に初期化。将来的にlocalStorageから値をセット予定
+        organization_code: 1,
     });
+
+    useEffect(() => {
+        // localStorageからorganization_codeを取得してセット
+        const orgCode = typeof window !== "undefined" ? localStorage.getItem("organization_code") : null;
+        if (orgCode && /^\d+$/.test(orgCode)) {
+            setFormData((prev) => ({
+                ...prev,
+                organization_code: Number(orgCode),
+            }));
+        }
+    }, []);
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -47,8 +58,7 @@ export default function MemberForm() {
                 role: formData.role,
                 final_updated: today,
                 now_or_not: formData.now_or_not,
-                organization_code: formData.organization_code, // 0で初期化、将来的にlocalStorageから取得予定
-                // status は DB 側で DEFAULT "none" になるようにしてください
+                organization_code: formData.organization_code, // 1で初期化、将来的にlocalStorageから取得予定
             };
 
             const { error: insertErr } = await supabase

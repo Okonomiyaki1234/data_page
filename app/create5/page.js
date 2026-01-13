@@ -18,7 +18,7 @@ export default function CreatePage() {
                         </div>
                         <nav className="hidden md:flex space-x-8">
                             <Link
-                                href="../"
+                                href="../home"
                                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
                             >
                                 ホーム

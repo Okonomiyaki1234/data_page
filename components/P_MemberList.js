@@ -45,27 +45,24 @@ export default function MemberListAll() {
                     return;
                 }
 
-                // --- organization_codeをlocalStorageから取得する場合 ---
-                // const orgCode = parseInt(localStorage.getItem("organization_code"), 10);
-                // const { data, error: sbError } = await supabase
-                //     .from("member")
-                //     .select("id, name, grade, role, final_updated, status, now_or_not")
-                //     .in("id", memberIds)
-                //     .order("grade", { ascending: false })
-                //     .eq("now_or_not", "1")
-                //     .eq("organization_code", orgCode); // ← ここでorganization_codeも参照
+                // organization_codeをlocalStorageから取得（文字列のまま）
+                const orgCode = typeof window !== "undefined" ? localStorage.getItem("organization_code") : "";
 
-                // --- 実装時の手順 ---
-                // 1. localStorage.setItem("organization_code", 123); などで値を保存
-                // 2. 上記コメントアウトを外して利用
+                // 6桁の数字のみ許可
+                if (!/^\d{6}$/.test(orgCode)) {
+                    setMembers([]);
+                    setLoading(false);
+                    return;
+                }
 
-                // --- 現状はorganization_code参照なし ---
+                // memberテーブルをproject_idとorganization_codeで絞り込み
                 const { data, error: sbError } = await supabase
                     .from("member")
                     .select("id, name, grade, role, final_updated, status, now_or_not")
                     .in("id", memberIds)
                     .order("grade", { ascending: false })
-                    .eq("now_or_not", "1");
+                    .eq("now_or_not", "1")
+                    .eq("organization_code", orgCode); // ← ここでorganization_codeも参照
 
                 if (sbError) throw sbError;
 

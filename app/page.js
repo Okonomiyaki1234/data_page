@@ -1,102 +1,67 @@
-import Link from "next/link";
-import AllMemberList from "@/components/AllMemberList";
-import TodayMemberList from "@/components/TodayMemberList";
+"use client";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+    const [code, setCode] = useState("");
+    const [error, setError] = useState("");
+    const router = useRouter();
+
+    useEffect(() => {
+        const savedCode = typeof window !== "undefined" ? localStorage.getItem("organization_code") : "";
+        if (savedCode) setCode(savedCode);
+    }, []);
+
+    const handleChange = (e) => {
+        // 6桁までの数字のみ許可
+        const value = e.target.value.replace(/\D/g, "").slice(0, 6);
+        setCode(value);
+        setError("");
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!/^\d{6}$/.test(code)) {
+            setError("6桁の数字を入力してください。");
+            return;
+        }
+        localStorage.setItem("organization_code", code);
+        router.push("/home");
+    };
+
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-            {/* ヘッダー */}
-            <header className="bg-white dark:bg-gray-800 shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center py-6">
-                        <div className="flex items-center">
-                            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                                メンバー管理アプリ
-                            </h1>
-                        </div>
-                        <nav className="hidden md:flex space-x-8">
-                            <Link
-                                href="/"
-                                className="text-blue-600 dark:text-blue-400 font-medium"
-                            >
-                                ホーム
-                            </Link>
-                            <Link
-                                href="/create"
-                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
-                            >
-                                プロジェクトを追加
-                            </Link>
-                            <Link
-                                href="/create2"
-                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
-                            >
-                                メンバーを追加
-                            </Link>
-                            <Link
-                                href="/create3"
-                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
-                            >
-                                プロジェクト一覧
-                            </Link>
-                            <Link
-                                href="/create4"
-                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
-                            >
-                                メンバー情報更新
-                            </Link>
-                            <Link
-                                href="/create5"
-                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
-                            >
-                                出席登録
-                            </Link>
-                        </nav>
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
+            <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 max-w-md w-full">
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                    ログイン
+                </h1>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                        <label htmlFor="org-code" className="block text-gray-700 dark:text-gray-300 mb-2">
+                            組織コード（6桁の数字）
+                        </label>
+                        <input
+                            id="org-code"
+                            type="text"
+                            value={code}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-900 dark:text-white"
+                            maxLength={6}
+                            inputMode="numeric"
+                            autoComplete="off"
+                        />
+                        {error && (
+                            <p className="text-red-500 text-sm mt-2">{error}</p>
+                        )}
                     </div>
-                </div>
-            </header>
-
-            {/* メインコンテンツ */}
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="text-center mb-12">
-                    <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                        メンバー一覧
-                    </h2>
-                    <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        登録されている部員及び本日更新されたメンバーを確認できます。
-                    </p>
-                    <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        右上からプロジェクト及びメンバーを追加可能です。
-                    </p>
-                    <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        新規でメンバーを追加することもできます。
-                    </p>
-                </div>
-
-                <div className="my-8">{/* 波線デコレーション */}
-                    <svg viewBox="0 0 120 10" preserveAspectRatio="none" className="w-full h-3 text-gray-400">
-                        <path d="M0 5 Q 10 0 20 5 T 40 5 T 60 5 T 80 5 T 100 5 T 120 5" fill="none" stroke="currentColor" strokeWidth="1"/>
-                    </svg>
-                </div>
-                <TodayMemberList />
-                <div className="my-8">{/* 波線デコレーション */}
-                    <svg viewBox="0 0 120 10" preserveAspectRatio="none" className="w-full h-3 text-gray-400">
-                        <path d="M0 5 Q 10 0 20 5 T 40 5 T 60 5 T 80 5 T 100 5 T 120 5" fill="none" stroke="currentColor" strokeWidth="1"/>
-                    </svg>
-                </div>
-                <AllMemberList />
-            </main>
-
-            {/* フッター */}
-            <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    <div className="text-center text-gray-600 dark:text-gray-400">
-                        <p>
-                            &copy; 2025 メンバー管理アプリ. 部活用に作成されました。
-                        </p>
-                    </div>
-                </div>
-            </footer>
+                    <button
+                        type="submit"
+                        className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded"
+                    >
+                        決定
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

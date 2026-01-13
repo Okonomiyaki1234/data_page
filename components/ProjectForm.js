@@ -22,28 +22,25 @@ export default function ProjectForm() {
         name: "",
         duration: "",
         roler: "", // member.id が入る
-        organization_code: 0, // int型で0に初期化。将来的にlocalStorageから値をセット予定
+        organization_code: 0, // int型で0に初期化
     });
 
-    // --- organization_codeをlocalStorageから取得する場合 ---
-    // useEffect(() => {
-    //     const orgCode = parseInt(localStorage.getItem("organization_code"), 10);
-    //     setFormData((prev) => ({ ...prev, organization_code: orgCode }));
-    // }, []);
+    // organization_codeをlocalStorageから取得してセット
+    useEffect(() => {
+        const orgCodeStr = typeof window !== "undefined" ? localStorage.getItem("organization_code") : null;
+        // 6桁の数字のみ許可
+        if (orgCodeStr && /^\d{6}$/.test(orgCodeStr)) {
+            setFormData((prev) => ({ ...prev, organization_code: Number(orgCodeStr) }));
+        }
+    }, []);
 
-    // --- 実装時の手順 ---
-    // 1. localStorage.setItem("organization_code", 123); などで値を保存
-    // 2. 上記コメントアウトを外して利用
-
-    // -----------------------------
-    //  member 取得処理
-    // -----------------------------
+    // member 取得処理
     useEffect(() => {
         const fetchMembers = async () => {
             const { data, error } = await supabase
                 .from("member")
                 .select("id, name, grade, role, now_or_not")
-                .eq("now_or_not", 1) // 現役のみ（必要に応じ変更）
+                .eq("now_or_not", 1)
                 .order("grade", { ascending: true });
 
             if (error) {
@@ -66,10 +63,7 @@ export default function ProjectForm() {
         }));
     };
 
-    // -----------------------------
-    //  プロジェクト作成
-    //  → 代表者(m_p テーブルに関連付け)
-    // -----------------------------
+    // プロジェクト作成
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -81,8 +75,8 @@ export default function ProjectForm() {
             const projectPayload = {
                 name: formData.name,
                 duration: formData.duration,
-                roler: formData.roler, // 代表者IDを保存
-                organization_code: formData.organization_code, // 0で初期化、将来的にlocalStorageから取得予定
+                roler: formData.roler,
+                organization_code: formData.organization_code,
             };
 
             const { data: projectData, error: projectErr } = await supabase
@@ -107,7 +101,6 @@ export default function ProjectForm() {
 
             if (mpErr) throw mpErr;
 
-            // 完了
             setSuccess("プロジェクトを保存しました");
             setFormData({ name: "", duration: "", roler: "", organization_code: 0 });
 
@@ -121,7 +114,6 @@ export default function ProjectForm() {
     return (
         <div className="bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
-
                 {/* --- メッセージ --- */}
                 {error && (
                     <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 rounded-lg p-4">
@@ -176,7 +168,6 @@ export default function ProjectForm() {
                     <label className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-2">
                         代表者 <span className="text-red-500">*</span>
                     </label>
-
                     <select
                         name="roler"
                         value={formData.roler}
@@ -185,7 +176,6 @@ export default function ProjectForm() {
                         className="block w-full px-3 py-2 border rounded-md dark:bg-gray-800 text-gray-900 dark:text-white"
                     >
                         <option value="">選択してください</option>
-
                         {members.map((m) => (
                             <option key={m.id} value={m.id}>
                                 {m.name}（{m.grade}年 / {m.role}）
@@ -203,7 +193,6 @@ export default function ProjectForm() {
                     >
                         キャンセル
                     </button>
-
                     <button
                         type="submit"
                         disabled={loading}
@@ -212,7 +201,6 @@ export default function ProjectForm() {
                         {loading ? "送信中..." : "プロジェクトを作成"}
                     </button>
                 </div>
-
             </form>
         </div>
     );

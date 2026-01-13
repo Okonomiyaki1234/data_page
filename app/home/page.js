@@ -1,5 +1,6 @@
 import Link from "next/link";
-import ProjectList from "@/components/ProjectList";
+import AllMemberList from "@/components/AllMemberList";
+import TodayMemberList from "@/components/TodayMemberList";
 
 export default function Home() {
     return (
@@ -16,7 +17,7 @@ export default function Home() {
                         <nav className="hidden md:flex space-x-8">
                             <Link
                                 href="../home"
-                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                                className="text-blue-600 dark:text-blue-400 font-medium"
                             >
                                 ホーム
                             </Link>
@@ -28,13 +29,13 @@ export default function Home() {
                             </Link>
                             <Link
                                 href="../create2"
-                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue -400 font-medium"
+                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
                             >
                                 メンバーを追加
                             </Link>
                             <Link
-                                href="/create3"
-                                className="text-blue-600 dark:text-blue-400 font-medium"
+                                href="../create3"
+                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
                             >
                                 プロジェクト一覧
                             </Link>
@@ -59,30 +60,31 @@ export default function Home() {
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="text-center mb-12">
                     <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                        プロジェクト一覧
+                        メンバー一覧
                     </h2>
                     <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        プロジェクトを確認できます。
+                        登録されている部員及び本日更新されたメンバーを確認できます。
                     </p>
                     <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
                         右上からプロジェクト及びメンバーを追加可能です。
                     </p>
                     <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        新規でプロジェクトを追加することもできます。
+                        新規でメンバーを追加することもできます。
                     </p>
                 </div>
 
-                <div className="my-8">
+                <div className="my-8">{/* 波線デコレーション */}
                     <svg viewBox="0 0 120 10" preserveAspectRatio="none" className="w-full h-3 text-gray-400">
                         <path d="M0 5 Q 10 0 20 5 T 40 5 T 60 5 T 80 5 T 100 5 T 120 5" fill="none" stroke="currentColor" strokeWidth="1"/>
                     </svg>
                 </div>
-                <ProjectList />
-                <div className="my-8">
+                <TodayMemberList />
+                <div className="my-8">{/* 波線デコレーション */}
                     <svg viewBox="0 0 120 10" preserveAspectRatio="none" className="w-full h-3 text-gray-400">
                         <path d="M0 5 Q 10 0 20 5 T 40 5 T 60 5 T 80 5 T 100 5 T 120 5" fill="none" stroke="currentColor" strokeWidth="1"/>
                     </svg>
                 </div>
+                <AllMemberList />
             </main>
 
             {/* フッター */}

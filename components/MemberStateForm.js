@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
@@ -8,7 +8,6 @@ const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL || "",
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
 );
-
 
 export default function MemberEditForm() {
     const router = useRouter();
@@ -26,25 +25,20 @@ export default function MemberEditForm() {
     const [success, setSuccess] = useState("");
 
     // メンバー一覧取得
-    useState(() => {
+    useEffect(() => {
         (async () => {
-            // --- organization_codeをlocalStorageから取得する場合 ---
-            // const orgCode = parseInt(localStorage.getItem("organization_code"), 10);
-            // const { data, error } = await supabase
-            //     .from("member")
-            //     .select("id, name, grade, role, now_or_not, status")
-            //     .eq("now_or_not", 1)
-            //     .eq("organization_code", orgCode) // ← ここでorganization_codeも参照
-            //     .order("grade", { ascending: true });
-            // --- 実装時の手順 ---
-            // 1. localStorage.setItem("organization_code", 123); などで値を保存
-            // 2. 上記コメントアウトを外して利用
-
-            // --- 現状はorganization_code参照なし ---
+            // organization_codeをlocalStorageから取得
+            const orgCodeStr = typeof window !== "undefined" ? localStorage.getItem("organization_code") : "";
+            // 6桁の数字のみ許可
+            if (!/^\d{6}$/.test(orgCodeStr)) {
+                setMembers([]);
+                return;
+            }
             const { data, error } = await supabase
                 .from("member")
                 .select("id, name, grade, role, now_or_not, status")
-                .eq("now_or_not", 1) // 現役のみ（必要に応じ変更）
+                .eq("now_or_not", 1)
+                .eq("organization_code", orgCodeStr) // ← ここでorganization_codeも参照
                 .order("grade", { ascending: true });
             if (!error) setMembers(data);
         })();

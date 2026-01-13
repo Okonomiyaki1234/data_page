@@ -22,26 +22,22 @@ export default function MemberListToday() {
             setError(null);
 
             try {
-                // --- organization_codeをlocalStorageから取得する場合 ---
-                // const orgCode = parseInt(localStorage.getItem("organization_code"), 10);
-                // const { data, error: sbError } = await supabase
-                //     .from("member")
-                //     .select("id, name, grade, role, final_updated, status, now_or_not")
-                //     .eq("final_updated", today)
-                //     .eq("now_or_not", "1")
-                //     .eq("organization_code", orgCode) // ← ここでorganization_codeも参照
-                //     .order("grade", { ascending: false });
+                // organization_codeをlocalStorageから取得（文字列のまま）
+                const orgCode = typeof window !== "undefined" ? localStorage.getItem("organization_code") : "";
 
-                // --- 実装時の手順 ---
-                // 1. localStorage.setItem("organization_code", 123); などで値を保存
-                // 2. 上記コメントアウトを外して利用
+                // 6桁の数字のみ許可
+                if (!/^\d{6}$/.test(orgCode)) {
+                    setMembers([]);
+                    setLoading(false);
+                    return;
+                }
 
-                // --- 現状はorganization_code参照なし ---
                 const { data, error: sbError } = await supabase
                     .from("member")
                     .select("id, name, grade, role, final_updated, status, now_or_not")
                     .eq("final_updated", today)
-                    .eq("now_or_not", "1")//現役のみ
+                    .eq("now_or_not", "1")
+                    .eq("organization_code", orgCode) // ← ここでorganization_codeも参照
                     .order("grade", { ascending: false });
 
                 if (sbError) throw sbError;

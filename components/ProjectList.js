@@ -21,29 +21,27 @@ export default function ListProject() {
             setLoading(true);
             setError(null);
             try {
+                // organization_codeをlocalStorageから取得（文字列のまま）
+                const orgCodeStr = typeof window !== "undefined" ? localStorage.getItem("organization_code") : "";
+                // 6桁の数字のみ許可
+                if (!/^\d{6}$/.test(orgCodeStr)) {
+                    setProject([]);
+                    setMembers([]);
+                    setLoading(false);
+                    return;
+                }
 
-                // --- organization_codeをlocalStorageから取得する場合 ---
-                // const orgCode = parseInt(localStorage.getItem("organization_code"), 10);
-                // const { data: projectData, error: projectError } = await supabase
-                //     .from("project")
-                //     .select("id, name, duration, roler")
-                //     .order("id", { ascending: false })
-                //     .eq("organization_code", orgCode); // ← ここでorganization_codeも参照
-
-                // --- 実装時の手順 ---
-                // 1. localStorage.setItem("organization_code", 123); などで値を保存
-                // 2. 上記コメントアウトを外して利用
-
-                // --- 現状はorganization_code参照なし ---
+                // organization_codeで絞り込み
                 const { data: projectData, error: projectError } = await supabase
                     .from("project")
                     .select("id, name, duration, roler")
-                    .order("id", { ascending: false });
-                if (projectError) throw projectError;
+                    .order("id", { ascending: false })
+                    .eq("organization_code", orgCodeStr); // ← ここでorganization_codeも参照
 
                 const { data: memberData, error: memberError } = await supabase
                     .from("member")
                     .select("id, name");
+                if (projectError) throw projectError;
                 if (memberError) throw memberError;
 
                 setProject(projectData);
