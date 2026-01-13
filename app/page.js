@@ -45,7 +45,7 @@ export default function Home() {
                             type="text"
                             value={code}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-900 dark:text-white"
+                            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-900 text-gray-700 dark:text-gray-300"
                             maxLength={6}
                             inputMode="numeric"
                             autoComplete="off"
