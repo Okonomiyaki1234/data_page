@@ -21,7 +21,7 @@ export default function Header({ orgName, menuOpen, setMenuOpen }) {
                     </div>
                     {/* PC用ナビゲーション */}
                     <nav className="hidden md:flex space-x-8">
-                        <Link href="../home" className="text-blue-600 dark:text-blue-400 font-medium">ホーム</Link>
+                        <Link href="../home" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">ホーム</Link>
                         <Link href="../create" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">プロジェクトを追加</Link>
                         <Link href="../create2" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">メンバーを追加</Link>
                         <Link href="../create3" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">プロジェクト一覧</Link>
@@ -43,7 +43,7 @@ export default function Header({ orgName, menuOpen, setMenuOpen }) {
                         {/* メニュー本体 */}
                         {menuOpen && (
                             <nav className="absolute top-20 right-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg py-4 px-6 z-50 flex flex-col space-y-4">
-                                <Link href="../home" className="text-blue-600 dark:text-blue-400 font-medium" onClick={() => setMenuOpen(false)}>ホーム</Link>
+                                <Link href="../home" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium" onClick={() => setMenuOpen(false)}>ホーム</Link>
                                 <Link href="../create" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium" onClick={() => setMenuOpen(false)}>プロジェクトを追加</Link>
                                 <Link href="../create2" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium" onClick={() => setMenuOpen(false)}>メンバーを追加</Link>
                                 <Link href="../create3" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium" onClick={() => setMenuOpen(false)}>プロジェクト一覧</Link>
