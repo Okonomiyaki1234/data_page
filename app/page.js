@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 export default function Home() {
     const [code, setCode] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -19,14 +20,35 @@ export default function Home() {
         setError("");
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!/^\d{6}$/.test(code)) {
             setError("6桁の数字を入力してください。");
             return;
         }
-        localStorage.setItem("organization_code", code);
-        router.push("/home");
+        setLoading(true);
+        setError("");
+        try {
+            const res = await fetch("/api/validate-code", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ code }),
+            });
+            if (!res.ok) {
+                throw new Error("APIエラー");
+            }
+            const data = await res.json();
+            if (data.valid) {
+                localStorage.setItem("organization_code", code);
+                router.push("/home");
+            } else {
+                setError("この組織コードは登録されていません。");
+            }
+        } catch (err) {
+            setError("サーバーエラーが発生しました。");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -49,6 +71,7 @@ export default function Home() {
                             maxLength={6}
                             inputMode="numeric"
                             autoComplete="off"
+                            disabled={loading}
                         />
                         {error && (
                             <p className="text-red-500 text-sm mt-2">{error}</p>
@@ -57,8 +80,9 @@ export default function Home() {
                     <button
                         type="submit"
                         className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded"
+                        disabled={loading}
                     >
-                        決定
+                        {loading ? "確認中..." : "決定"}
                     </button>
                 </form>
             </div>

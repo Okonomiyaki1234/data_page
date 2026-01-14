@@ -6,7 +6,7 @@ export default function Header({ orgName, menuOpen, setMenuOpen }) {
         <header className="bg-white dark:bg-gray-800 shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center py-6">
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-3">
                         <Link
                             href="/"
                             className="text-2xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
@@ -14,13 +14,13 @@ export default function Header({ orgName, menuOpen, setMenuOpen }) {
                             メンバー管理アプリ
                         </Link>
                         {orgName && (
-                            <span className="text-gray-700 dark:text-gray-300 text-lg font-semibold">
+                            <span className="text-gray-700 dark:text-gray-300 text-base font-semibold">
                                 （{orgName}）
                             </span>
                         )}
                     </div>
                     {/* PC用ナビゲーション */}
-                    <nav className="hidden md:flex space-x-8">
+                    <nav className="hidden md:flex md:space-x-6 lg:space-x-8">
                         <Link href="../home" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">ホーム</Link>
                         <Link href="../create" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">プロジェクトを追加</Link>
                         <Link href="../create2" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">メンバーを追加</Link>

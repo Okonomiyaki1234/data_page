@@ -38,7 +38,7 @@ export default function MemberEditForm() {
                 .select("id, name, grade, role, now_or_not, status")
                 .eq("now_or_not", 1)
                 .eq("organization_code", orgCodeStr)
-                .order("grade", { ascending: false }); // ← ここで降順に変更
+                .order("grade", { ascending: false });
             if (!error) setMembers(data);
         })();
     }, []);
