@@ -1,11 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Notice from "../components/Notice";
 
 export default function Home() {
     const [code, setCode] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showNotice, setShowNotice] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -51,12 +53,30 @@ export default function Home() {
         }
     };
 
+    const handleNoticeTab = () => {
+        setShowNotice((prev) => !prev);
+    };
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
             <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 max-w-md w-full">
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-                    ログイン
-                </h1>
+                <div className="flex justify-between items-center mb-6">
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white text-center flex-1">
+                        ログイン
+                    </h1>
+                    <button
+                        type="button"
+                        className="ml-4 px-3 py-1 bg-indigo-100 dark:bg-gray-700 text-indigo-700 dark:text-white rounded shadow hover:bg-indigo-200"
+                        onClick={handleNoticeTab}
+                    >
+                        お知らせ
+                    </button>
+                </div>
+                {showNotice && (
+                    <div className="mb-6">
+                        <Notice />
+                    </div>
+                )}
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                         <label htmlFor="org-code" className="block text-gray-700 dark:text-gray-300 mb-2">
