@@ -73,7 +73,7 @@ export default function Home() {
                     </button>
                 </div>
                 {showNotice && (
-                    <div className="mb-6">
+                    <div className="mb-6 whitespace-pre-wrap">
                         <Notice />
                     </div>
                 )}
