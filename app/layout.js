@@ -8,8 +8,8 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata = {
-    title: "演劇部メンバー管理アプリ",
-    description: "演劇部のメンバーを簡単に管理できるアプリケーションです。",
+    title: "メンバー管理アプリ",
+    description: "団体のメンバーを簡単に管理できるアプリケーションです。",
 };
 
 export default function RootLayout({ children }) {

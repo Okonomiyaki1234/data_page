@@ -36,10 +36,10 @@ export default function CreatePage() {
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                        メンバー情報更新
+                        出欠登録
                     </h1>
                     <p className="text-gray-600 dark:text-gray-300">
-                        メンバー情報を更新して、新しい現し身へと生まれ変わりましょう。
+                        出欠登録を行って、新しい一日を始めましょう。
                     </p>
                 </div>
 

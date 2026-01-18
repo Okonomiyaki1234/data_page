@@ -20,7 +20,7 @@ export default function Header({ orgName, menuOpen, setMenuOpen }) {
                         )}
                     </div>
                     {/* PC用ナビゲーション */}
-                    <nav className="hidden md:flex md:space-x-5 lg:space-x-8">
+                    <nav className="hidden lg:flex lg:space-x-8">
                         <Link href="../home" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">ホーム</Link>
                         <Link href="../create" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">プロジェクト追加</Link>
                         <Link href="../create2" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">メンバー追加</Link>

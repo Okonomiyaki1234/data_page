@@ -41,9 +41,6 @@ export default function Home() {
                         プロジェクトを確認できます。
                     </p>
                     <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        右上からプロジェクト及びメンバーを追加可能です。
-                    </p>
-                    <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
                         新規でプロジェクトを追加することもできます。
                     </p>
                 </div>

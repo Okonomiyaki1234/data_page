@@ -21,7 +21,7 @@ export default function Notice() {
             try {
                 const { data, error: sbError } = await supabase
                     .from("notice")
-                    .select("id, title, content")
+                    .select("id, title, content, date")
                     .order("id", { ascending: false });
 
                 if (sbError) throw sbError;
@@ -59,6 +59,9 @@ export default function Notice() {
                         <div key={n.id} className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
                             <p className="text-lg font-semibold text-gray-900 dark:text-white">
                                 {n.title}
+                            </p>
+                            <p className="text-gray-800 dark:text-gray-300 mb-2">
+                                （{new Date(n.date).toLocaleDateString()}）
                             </p>
                             <p className="text-gray-700 dark:text-gray-300">
                                 {n.content}

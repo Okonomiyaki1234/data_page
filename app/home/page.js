@@ -40,13 +40,10 @@ export default function Home() {
                         メンバー一覧
                     </h2>
                     <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        登録されている部員及び本日更新されたメンバーを確認できます。
+                        登録者及び本日更新されたメンバーを確認できます。
                     </p>
                     <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
                         右上からプロジェクト及びメンバーを追加可能です。
-                    </p>
-                    <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                        新規でメンバーを追加することもできます。
                     </p>
                 </div>
 
