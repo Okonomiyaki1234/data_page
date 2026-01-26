@@ -68,7 +68,14 @@ export default function MemberForm() {
             if (insertErr) throw insertErr;
 
             setSuccess("メンバーを追加しました！");
-            setFormData({ name: "", grade: "", role: "", now_or_not: "", organization_code: 0 });
+            const orgCode = typeof window !== "undefined" ? localStorage.getItem("organization_code") : null;
+            setFormData({
+                name: "",
+                grade: "",
+                role: "",
+                now_or_not: "",
+                organization_code: orgCode && /^\d+$/.test(orgCode) ? Number(orgCode) : 1,
+            });
 
         } catch (err) {
             setError(String(err.message || err));

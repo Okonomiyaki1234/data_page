@@ -56,25 +56,31 @@ export default function ProjectForm() {
         // formData.organization_codeが変わったら再取得
     }, [formData.organization_code]);
 
-    // member 取得処理
+    // member 取得処理（organization_codeでフィルタ）
     useEffect(() => {
         const fetchMembers = async () => {
+            if (!formData.organization_code) {
+                setMembers([]);
+                return;
+            }
             const { data, error } = await supabase
                 .from("member")
-                .select("id, name, grade, role, now_or_not")
+                .select("id, name, grade, role, now_or_not, organization_code")
                 .eq("now_or_not", 1)
+                .eq("organization_code", formData.organization_code)
                 .order("grade", { ascending: true });
 
             if (error) {
                 console.error(error);
                 setError("メンバーリスト取得に失敗しました");
+                setMembers([]);
             } else {
                 setMembers(data);
             }
         };
 
         fetchMembers();
-    }, []);
+    }, [formData.organization_code]);
 
     // フォーム変更
     const handleChange = (e) => {
