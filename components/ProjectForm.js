@@ -15,6 +15,7 @@ export default function ProjectForm() {
     const [success, setSuccess] = useState("");
 
     const [members, setMembers] = useState([]); // ← 代表者候補
+    const [durations, setDurations] = useState([]); // 期間候補
 
     const router = useRouter();
 
@@ -33,6 +34,27 @@ export default function ProjectForm() {
             setFormData((prev) => ({ ...prev, organization_code: Number(orgCodeStr) }));
         }
     }, []);
+
+    // duration候補取得
+    useEffect(() => {
+        const fetchDurations = async () => {
+            // organization_codeがセットされていなければ取得しない
+            if (!formData.organization_code) return;
+            const { data, error } = await supabase
+                .from("duration")
+                .select("list")
+                .eq("id", formData.organization_code)
+                .single();
+            if (error) {
+                setDurations([]);
+            } else {
+                // listが配列で入っている前提
+                setDurations(Array.isArray(data?.list) ? data.list : []);
+            }
+        };
+        fetchDurations();
+        // formData.organization_codeが変わったら再取得
+    }, [formData.organization_code]);
 
     // member 取得処理
     useEffect(() => {
@@ -153,13 +175,12 @@ export default function ProjectForm() {
                         onChange={handleChange}
                         required
                         className="block w-full px-3 py-2 border rounded-md dark:bg-gray-800 text-gray-900 dark:text-white"
+                        disabled={durations.length === 0}
                     >
-                        <option value="">選択してください</option>
-                        <option value="新入生歓迎公演">新入生歓迎公演</option>
-                        <option value="大会">大会</option>
-                        <option value="文化祭">文化祭</option>
-                        <option value="冬季公演">冬季公演</option>
-                        <option value="引退公演">引退公演</option>
+                        <option value="">{durations.length === 0 ? "組織コードを設定してください" : "選択してください"}</option>
+                        {durations.map((d, i) => (
+                            <option key={i} value={d}>{d}</option>
+                        ))}
                     </select>
                 </div>
 
