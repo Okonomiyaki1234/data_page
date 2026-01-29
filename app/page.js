@@ -11,6 +11,10 @@ export default function Home() {
     const router = useRouter();
 
     useEffect(() => {
+        // 管理者状態を強制ログアウト
+        if (typeof window !== "undefined") {
+            localStorage.setItem("is_admin", "false");
+        }
         const savedCode = typeof window !== "undefined" ? localStorage.getItem("organization_code") : "";
         if (savedCode) setCode(savedCode);
     }, []);

@@ -166,7 +166,7 @@ export default function ProjectForm() {
                         onChange={handleChange}
                         required
                         className="block w-full px-3 py-2 border rounded-md dark:bg-gray-800 text-gray-900 dark:text-white"
-                        placeholder="台本の題名を入力してください"
+                        placeholder="プロジェクト名を入力してください"
                     />
                 </div>
 
