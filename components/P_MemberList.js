@@ -13,6 +13,7 @@ export default function MemberListAll() {
     const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [projectName, setProjectName] = useState(""); // 追加
 
     //クエリ取得
     const searchParams = useSearchParams();
@@ -24,6 +25,21 @@ export default function MemberListAll() {
             setLoading(false);
             return;
         }
+
+        // プロジェクト名取得
+        async function fetchProjectName() {
+            const { data, error } = await supabase
+                .from("project")
+                .select("name")
+                .eq("id", projectId)
+                .single();
+            if (data && data.name) {
+                setProjectName(data.name);
+            } else {
+                setProjectName("");
+            }
+        }
+        fetchProjectName();
 
         async function loadMembers() {
             setLoading(true);
@@ -80,7 +96,12 @@ export default function MemberListAll() {
     return (
         <div>
             <h2 className="text-xl text-gray-900 font-bold mb-6">
-                メンバー一覧（project_id: {projectId}）
+                メンバー一覧
+                {projectName
+                    ? `（${projectName}）`
+                    : projectId
+                        ? `（project_id: ${projectId}）`
+                        : ""}
             </h2>
 
             {loading ? (
