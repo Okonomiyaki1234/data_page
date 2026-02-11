@@ -78,14 +78,31 @@ export default function MemberEditForm() {
             const mm = String(today.getMonth() + 1).padStart(2, '0');
             const dd = String(today.getDate()).padStart(2, '0');
             const dateValue = `${yyyy}-${mm}-${dd}`; // YYYY-MM-DD 形式
-            const payload = {
+
+            // まず対象メンバーのfinal_updatedを取得
+            const { data: memberData, error: fetchErr } = await supabase
+                .from("member")
+                .select("final_updated, point")
+                .eq("id", selectedId)
+                .single();
+
+            if (fetchErr) throw fetchErr;
+
+            let payload = {
                 status: formData.status,
                 final_updated: dateValue,
             };
+
+            // final_updatedが今日でない場合、pointを1増やす
+            if (memberData && memberData.final_updated !== dateValue) {
+                payload.point = (memberData.point || 0) + 1;
+            }
+
             const { error: updateErr } = await supabase
                 .from("member")
                 .update(payload)
                 .eq("id", selectedId);
+
             if (updateErr) throw updateErr;
             setSuccess("本日の状態を更新しました！");
         } catch (err) {

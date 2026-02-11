@@ -1,12 +1,28 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Header({ orgName, menuOpen, setMenuOpen }) {
     const [isAdmin, setIsAdmin] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
+        // タイムアウト判定
         if (typeof window !== "undefined") {
+            const lastAction = localStorage.getItem("last_action_time");
+            const now = Date.now();
+            if (lastAction) {
+                const diff = now - Number(lastAction);
+                // 36時間 = 36 * 60 * 60 * 1000 ms
+                if (diff > 36 * 60 * 60 * 1000) {
+                    // 36時間以上経過 → トップページへ遷移
+                    router.push("/");
+                    return;
+                }
+            }
+            // 最終操作時刻を更新
+            localStorage.setItem("last_action_time", String(now));
             setIsAdmin(localStorage.getItem("is_admin") === "true");
         }
     }, []);
