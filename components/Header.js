@@ -17,6 +17,8 @@ export default function Header({ orgName, menuOpen, setMenuOpen }) {
                 // 36時間 = 36 * 60 * 60 * 1000 ms
                 if (diff > 36 * 60 * 60 * 1000) {
                     // 36時間以上経過 → トップページへ遷移
+                    localStorage.setItem("last_action_time", String(now));
+                    setIsAdmin(localStorage.getItem("is_admin") === "true");
                     router.push("/");
                     return;
                 }
