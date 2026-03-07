@@ -13,20 +13,34 @@ const supabase = createClient(
 export default function Home() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [orgName, setOrgName] = useState("");
+    const [orgNotice, setOrgNotice] = useState("");
 
     useEffect(() => {
-        const fetchOrgName = async () => {
+        const fetchOrgInfo = async () => {
             const orgCode = typeof window !== "undefined" ? localStorage.getItem("organization_code") : null;
             if (!orgCode) return;
-            // organization_codeは数値型で保存されている前提
+
             const { data, error } = await supabase
                 .from("organization")
-                .select("name")
+                .select("*")
                 .eq("id", orgCode)
                 .single();
-            if (data && data.name) setOrgName(data.name);
+
+            if (error || !data) return;
+
+            if (data.name) setOrgName(data.name);
+
+            const noticeText =
+                typeof data.Notice === "string"
+                    ? data.Notice
+                    : typeof data.notice === "string"
+                        ? data.notice
+                        : "";
+
+            setOrgNotice(noticeText);
         };
-        fetchOrgName();
+
+        fetchOrgInfo();
     }, []);
 
     return (
@@ -35,6 +49,17 @@ export default function Home() {
             <Header orgName={orgName} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                {orgNotice && (
+                    <div className="mb-8 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg shadow p-6">
+                        <p className="text-sm font-semibold text-amber-800 dark:text-amber-300 mb-2">
+                            組織からのお知らせ
+                        </p>
+                        <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">
+                            {orgNotice}
+                        </p>
+                    </div>
+                )}
+
                 <div className="text-center mb-12">
                     <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
                         メンバー一覧

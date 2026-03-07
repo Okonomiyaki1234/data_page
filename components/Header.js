@@ -62,6 +62,9 @@ export default function Header({ orgName, menuOpen, setMenuOpen }) {
                         <div className="flex space-x-4 mt-2">
                             <Link href="../create4" className="text-xl text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded hover:bg-blue-100 dark:hover:bg-blue-900 transition">メンバー情報更新</Link>
                             <Link href="../create5" className="text-xl text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded hover:bg-blue-100 dark:hover:bg-blue-900 transition">出席登録</Link>
+                            {isAdmin && (
+                                <Link href="../create8" className="text-xl text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded hover:bg-blue-100 dark:hover:bg-blue-900 transition">組織お知らせ登録</Link>
+                            )}
                             <Link href="../create7" className="text-xl text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded hover:bg-blue-100 dark:hover:bg-blue-900 transition">組織管理者ログイン</Link>
                         </div>
                     </nav>
@@ -86,6 +89,9 @@ export default function Header({ orgName, menuOpen, setMenuOpen }) {
                                 <Link href="../create3" className="text-lg text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded hover:bg-blue-100 dark:hover:bg-blue-900 transition" onClick={() => setMenuOpen(false)}>プロジェクト一覧</Link>
                                 <Link href="../create4" className="text-lg text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded hover:bg-blue-100 dark:hover:bg-blue-900 transition" onClick={() => setMenuOpen(false)}>メンバー情報更新</Link>
                                 <Link href="../create5" className="text-lg text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded hover:bg-blue-100 dark:hover:bg-blue-900 transition" onClick={() => setMenuOpen(false)}>出席登録</Link>
+                                {isAdmin && (
+                                    <Link href="../create8" className="text-lg text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded hover:bg-blue-100 dark:hover:bg-blue-900 transition" onClick={() => setMenuOpen(false)}>組織お知らせ登録</Link>
+                                )}
                                 <Link href="../create7" className="text-lg text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded hover:bg-blue-100 dark:hover:bg-blue-900 transition" onClick={() => setMenuOpen(false)}>組織管理者ログイン</Link>
                             </nav>
                         )}

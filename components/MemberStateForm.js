@@ -19,6 +19,7 @@ export default function MemberEditForm() {
         role: "",
         now_or_not: "",
         status: "",
+        memo: "",
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -36,7 +37,7 @@ export default function MemberEditForm() {
             }
             const { data, error } = await supabase
                 .from("member")
-                .select("id, name, grade, role, now_or_not, status")
+                .select("id, name, grade, role, now_or_not, status, memo")
                 .eq("now_or_not", 1)
                 .eq("organization_code", orgCodeStr)
                 .order("grade", { ascending: false }); // ← ここで降順に変更
@@ -56,6 +57,7 @@ export default function MemberEditForm() {
                 role: member.role || "",
                 now_or_not: member.now_or_not || "",
                 status: member.status || "",
+                memo: member.memo || "",
             });
         }
     };
@@ -63,7 +65,12 @@ export default function MemberEditForm() {
     // statusのみ変更
     const handleStatusChange = (e) => {
         setFormData((prev) => ({ ...prev, status: e.target.value }));
-    };
+    } 
+
+    // memo変更
+    const handleMemoChange = (e) => {
+        setFormData((prev) => ({ ...prev, memo: e.target.value }));
+    }
 
     // 送信処理（statusのみ更新）
     const handleSubmit = async (e) => {
@@ -76,7 +83,7 @@ export default function MemberEditForm() {
             const today = new Date();
             const yyyy = today.getFullYear();
             const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const dd = String(today.getDate()).padStart(2, '0');
+            const dd = String(today.getDate());
             const dateValue = `${yyyy}-${mm}-${dd}`; // YYYY-MM-DD 形式
 
             // まず対象メンバーのfinal_updatedを取得
@@ -91,6 +98,7 @@ export default function MemberEditForm() {
             let payload = {
                 status: formData.status,
                 final_updated: dateValue,
+                memo: formData.memo,
             };
 
             // final_updatedが今日でない場合、pointを1増やす
@@ -185,6 +193,21 @@ export default function MemberEditForm() {
                         <option value="遅刻">遅刻</option>
                         <option value="早退">早退</option>
                     </select>
+                </div>
+
+                {/* memo欄（編集可能） */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-2">
+                        メモ・欠席理由・一言など
+                    </label>
+                    <textarea
+                        name="memo"
+                        value={formData.memo}
+                        onChange={handleMemoChange}
+                        rows={3}
+                        className="block w-full px-3 py-2 border rounded-md dark:bg-gray-800 text-gray-900 dark:text-white"
+                        placeholder="欠席理由や一言など自由に入力してください"
+                    />
                 </div>
 
                 {/* ボタン */}

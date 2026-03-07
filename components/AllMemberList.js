@@ -33,7 +33,7 @@ export default function MemberListAll() {
                 // Supabaseからorganization_codeで絞り込み
                 const { data, error: sbError } = await supabase
                     .from("member")
-                    .select("id, name, grade, role, final_updated, status, now_or_not")
+                    .select("id, name, grade, role, final_updated, status, now_or_not, memo")
                     .order("grade", { ascending: false })
                     .eq("now_or_not", "1")
                     .eq("organization_code", orgCode);
@@ -80,6 +80,11 @@ export default function MemberListAll() {
                             <p className="text-gray-600 dark:text-gray-300">
                                 ステータス：{m.status}
                             </p>
+                            {m.memo && (
+                                <p className="text-gray-600 dark:text-gray-300">
+                                    メモ：{m.memo}
+                                </p>
+                            )}
                             <p className="text-gray-500 dark:text-gray-400 text-sm">
                                 最終更新：{m.final_updated}
                             </p>
