@@ -90,6 +90,16 @@ export default function Home() {
             <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div className="text-center text-gray-600 dark:text-gray-400">
+                        <p className="mb-3">
+                            <a
+                                href="https://forms.gle/tfngGFqgrqdP9mHm8"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                            >
+                                フィードバックフォームはこちら
+                            </a>
+                        </p>
                         <p>
                             &copy; 2025 メンバー管理アプリ. 部活用に作成されました。
                         </p>
